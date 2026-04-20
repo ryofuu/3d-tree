@@ -52,6 +52,19 @@ export function rosePetal(size: number): Shape {
 }
 
 /**
+ * サクラ向け：幅広で先端中央に深いV字の切れ込み（八重桜の単花弁にも使える）。
+ */
+export function cherryPetal(len: number, w: number): Shape {
+  const s = new Shape();
+  s.moveTo(0, 0);
+  s.bezierCurveTo(w * 0.7, len * 0.05, w * 1.0, len * 0.55, w * 0.7, len * 0.92);
+  s.quadraticCurveTo(w * 0.35, len * 0.78, 0, len * 0.7);
+  s.quadraticCurveTo(-w * 0.35, len * 0.78, -w * 0.7, len * 0.92);
+  s.bezierCurveTo(-w * 1.0, len * 0.55, -w * 0.7, len * 0.05, 0, 0);
+  return s;
+}
+
+/**
  * 細長い笹型の葉：チューリップ・ユリ向け。
  */
 export function swordLeaf(len: number, w: number): Shape {
