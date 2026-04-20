@@ -1,18 +1,18 @@
 import "./globals.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Nav } from "./Nav";
 
 export const metadata: Metadata = {
   title: "3D 植物園",
-  description: "React Three Fiber で作った木・花・幻想花の標本",
+  description: "React Three Fiber で作った花の標本",
 };
 
-const mainStyle: React.CSSProperties = {
-  position: "fixed",
-  top: 52,
-  left: 0,
-  right: 0,
-  bottom: 0,
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: "#0f0f19",
 };
 
 export default function RootLayout({
@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="ja">
       <body>
         <Nav />
-        <main style={mainStyle}>{children}</main>
+        <main className="app-main">{children}</main>
       </body>
     </html>
   );

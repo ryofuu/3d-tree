@@ -356,108 +356,6 @@ const flashStyle: React.CSSProperties = {
   transition: "opacity 120ms ease-out",
 };
 
-const hudStyle: React.CSSProperties = {
-  position: "absolute",
-  left: "50%",
-  bottom: 24,
-  transform: "translateX(-50%)",
-  display: "flex",
-  alignItems: "stretch",
-  gap: 14,
-  padding: "14px 18px",
-  background: "rgba(15,15,25,0.82)",
-  borderRadius: 12,
-  color: "#fff",
-  fontFamily: "system-ui, sans-serif",
-  zIndex: 20,
-  backdropFilter: "blur(6px)",
-  WebkitBackdropFilter: "blur(6px)",
-  border: "1px solid rgba(255,255,255,0.15)",
-};
-
-const hudColumnStyle: React.CSSProperties = {
-  display: "flex",
-  flexDirection: "column",
-  gap: 6,
-  minWidth: 190,
-};
-
-const hudLabelStyle: React.CSSProperties = {
-  fontSize: 11,
-  letterSpacing: "0.14em",
-  color: "rgba(255,255,255,0.65)",
-  fontWeight: 700,
-};
-
-const pickerRowStyle: React.CSSProperties = {
-  display: "flex",
-  gap: 6,
-  alignItems: "center",
-};
-
-const selectStyle: React.CSSProperties = {
-  padding: "6px 10px",
-  background: "rgba(255,255,255,0.1)",
-  color: "#fff",
-  border: "1px solid rgba(255,255,255,0.2)",
-  borderRadius: 6,
-  fontSize: 13,
-  fontWeight: 600,
-  cursor: "pointer",
-};
-
-const levelGroupStyle: React.CSSProperties = {
-  display: "flex",
-  gap: 2,
-};
-
-const levelBtnBase: React.CSSProperties = {
-  width: 28,
-  height: 28,
-  border: "1px solid rgba(255,255,255,0.2)",
-  background: "rgba(255,255,255,0.06)",
-  color: "rgba(255,255,255,0.7)",
-  borderRadius: 5,
-  fontSize: 12,
-  fontWeight: 700,
-  cursor: "pointer",
-  fontFamily: "system-ui, sans-serif",
-};
-
-const levelBtnActive: React.CSSProperties = {
-  ...levelBtnBase,
-  background: "rgba(255,180,220,0.3)",
-  borderColor: "rgba(255,200,220,0.7)",
-  color: "#fff",
-};
-
-const arrowStyle: React.CSSProperties = {
-  display: "flex",
-  alignItems: "center",
-  fontSize: 22,
-  opacity: 0.7,
-  padding: "0 6px",
-};
-
-const btnStyle: React.CSSProperties = {
-  alignSelf: "stretch",
-  padding: "0 22px",
-  border: "1px solid rgba(255,255,255,0.3)",
-  background: "linear-gradient(180deg, #ff7aa3, #c03060)",
-  color: "#fff",
-  borderRadius: 8,
-  fontSize: 14,
-  fontWeight: 700,
-  cursor: "pointer",
-  letterSpacing: "0.05em",
-};
-
-const btnDisabledStyle: React.CSSProperties = {
-  ...btnStyle,
-  opacity: 0.5,
-  cursor: "not-allowed",
-};
-
 const phaseLabelStyle: React.CSSProperties = {
   position: "absolute",
   top: 16,
@@ -485,14 +383,14 @@ function FlowerPicker({
   disabled: boolean;
 }) {
   return (
-    <div style={pickerRowStyle}>
+    <div className="evo-picker">
       <select
         value={value.variety}
         onChange={(e) =>
           onChange({ ...value, variety: e.target.value as Variety })
         }
         disabled={disabled}
-        style={selectStyle}
+        className="evo-select"
       >
         {VARIETY_ORDER.map((v) => (
           <option key={v} value={v}>
@@ -500,12 +398,12 @@ function FlowerPicker({
           </option>
         ))}
       </select>
-      <div style={levelGroupStyle}>
+      <div className="evo-levels">
         {LEVELS.map((lv) => (
           <button
             key={lv}
             disabled={disabled}
-            style={lv === value.level ? levelBtnActive : levelBtnBase}
+            className={`evo-level-btn${lv === value.level ? " is-active" : ""}`}
             onClick={() => onChange({ ...value, level: lv })}
           >
             L{lv}
@@ -676,22 +574,22 @@ export function EvolutionScene() {
         <div style={phaseLabelStyle}>{phaseText[phase]}</div>
       )}
 
-      <div style={hudStyle}>
-        <div style={hudColumnStyle}>
-          <div style={hudLabelStyle}>何から</div>
+      <div className="evo-hud">
+        <div className="evo-column">
+          <div className="evo-label">何から</div>
           <FlowerPicker
             value={from}
             onChange={updateFrom}
             disabled={isRunning}
           />
         </div>
-        <div style={arrowStyle}>→</div>
-        <div style={hudColumnStyle}>
-          <div style={hudLabelStyle}>何へ</div>
+        <div className="evo-arrow">→</div>
+        <div className="evo-column">
+          <div className="evo-label">何へ</div>
           <FlowerPicker value={to} onChange={updateTo} disabled={isRunning} />
         </div>
         <button
-          style={isRunning || isSameRef ? btnDisabledStyle : btnStyle}
+          className="evo-btn"
           disabled={isRunning || isSameRef}
           onClick={startEvolution}
           title={isSameRef ? "from と to が同じです" : ""}

@@ -16,8 +16,216 @@ body {
   box-sizing: border-box;
 }
 
-#__next,
-#__next > div {
-  width: 100%;
-  height: 100%;
+/* ─── 進化シーンの HUD：モバイルで縦積みに ─────────────── */
+
+.evo-hud {
+  position: absolute;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: stretch;
+  gap: 14px;
+  padding: 14px 18px;
+  background: rgba(15, 15, 25, 0.82);
+  border-radius: 12px;
+  color: #fff;
+  font-family: system-ui, sans-serif;
+  z-index: 20;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  max-width: calc(100vw - 24px);
+  box-sizing: border-box;
+}
+
+.evo-column {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 190px;
+}
+
+.evo-label {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.65);
+  font-weight: 700;
+}
+
+.evo-picker {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.evo-select {
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.evo-levels {
+  display: flex;
+  gap: 2px;
+}
+
+.evo-level-btn {
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.7);
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.evo-level-btn.is-active {
+  background: rgba(255, 180, 220, 0.3);
+  border-color: rgba(255, 200, 220, 0.7);
+  color: #fff;
+}
+
+.evo-level-btn:disabled {
+  cursor: not-allowed;
+}
+
+.evo-arrow {
+  display: flex;
+  align-items: center;
+  font-size: 22px;
+  opacity: 0.7;
+  padding: 0 6px;
+}
+
+.evo-btn {
+  align-self: stretch;
+  padding: 0 22px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: linear-gradient(180deg, #ff7aa3, #c03060);
+  color: #fff;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  font-family: inherit;
+}
+
+.evo-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 720px) {
+  .evo-hud {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 12px 14px;
+    width: calc(100vw - 20px);
+    max-width: calc(100vw - 20px);
+    bottom: 12px;
+    left: 10px;
+    transform: none;
+  }
+  .evo-column {
+    min-width: 0;
+  }
+  .evo-arrow {
+    display: none;
+  }
+  .evo-btn {
+    padding: 12px 22px;
+  }
+  .evo-select {
+    flex-shrink: 0;
+  }
+  .evo-levels {
+    flex: 1;
+  }
+  .evo-level-btn {
+    width: auto;
+    flex: 1;
+  }
+}
+
+/* ─── ナビ：狭い画面で少しコンパクトに ─────────────── */
+
+.app-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 52px;
+  display: flex;
+  gap: 4px;
+  padding: 8px;
+  background: rgba(15, 15, 25, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 100;
+  font-family: system-ui, sans-serif;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-sizing: border-box;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.app-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.app-nav-link {
+  padding: 8px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.app-nav-link.is-active {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.app-main {
+  position: fixed;
+  top: 52px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+@media (max-width: 500px) {
+  .app-nav {
+    height: 46px;
+    padding: 6px;
+    gap: 3px;
+  }
+  .app-nav-link {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+  .app-main {
+    top: 46px;
+  }
 }
