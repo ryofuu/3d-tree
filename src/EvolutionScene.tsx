@@ -11,17 +11,37 @@ import { TulipFlower } from "./TulipFlower";
 import { GerberaFlower } from "./GerberaFlower";
 import { LilyFlower } from "./LilyFlower";
 import { RoseFlower } from "./RoseFlower";
+import { BlackFlameFlower } from "./BlackFlameFlower";
+import { EvilEyeFlower } from "./EvilEyeFlower";
+import { CrystalFlower } from "./CrystalFlower";
+import { MoonBellFlower } from "./MoonBellFlower";
+import { AbyssFlower } from "./AbyssFlower";
 import { FlowerPot, POT_TOP_Y } from "./FlowerPot";
 import type { FlowerStage } from "./GerberaFlower";
 import { playEvolutionSequence, primeAudio } from "./evolutionAudio";
 
-type Variety = "cherry" | "tulip" | "gerbera" | "lily" | "rose";
+type Variety =
+  | "cherry"
+  | "tulip"
+  | "gerbera"
+  | "lily"
+  | "rose"
+  | "blackflame"
+  | "evileye"
+  | "crystal"
+  | "moonbell"
+  | "abyss";
 const VARIETY_ORDER: Variety[] = [
   "cherry",
   "tulip",
   "gerbera",
   "lily",
   "rose",
+  "blackflame",
+  "evileye",
+  "crystal",
+  "moonbell",
+  "abyss",
 ];
 const VARIETY_LABEL: Record<Variety, string> = {
   cherry: "サクラ",
@@ -29,6 +49,11 @@ const VARIETY_LABEL: Record<Variety, string> = {
   gerbera: "ガーベラ",
   lily: "ユリ",
   rose: "バラ",
+  blackflame: "黒焔華",
+  evileye: "邪眼花",
+  crystal: "星霜水晶花",
+  moonbell: "月鳴鈴花",
+  abyss: "深海渦潮花",
 };
 
 const LEVELS: FlowerStage[] = [1, 2, 3, 4, 5];
@@ -81,6 +106,16 @@ function FlowerByVariety({
       return <LilyFlower stage={stage} />;
     case "rose":
       return <RoseFlower stage={stage} />;
+    case "blackflame":
+      return <BlackFlameFlower stage={stage} />;
+    case "evileye":
+      return <EvilEyeFlower stage={stage} />;
+    case "crystal":
+      return <CrystalFlower stage={stage} />;
+    case "moonbell":
+      return <MoonBellFlower stage={stage} />;
+    case "abyss":
+      return <AbyssFlower stage={stage} />;
   }
 }
 

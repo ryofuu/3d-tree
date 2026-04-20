@@ -85,3 +85,64 @@ export function ovateLeaf(len: number, w: number): Shape {
   s.bezierCurveTo(-w * 0.9, len * 0.7, -w * 1.2, len * 0.25, 0, 0);
   return s;
 }
+
+/**
+ * 鋭い鋸歯付きの花弁：禍々しい炎の花向け。
+ * 根元から先端へ向けてギザギザの縁を持ち、先端は鋭く尖る。
+ */
+export function spikyPetal(len: number, w: number): Shape {
+  const s = new Shape();
+  s.moveTo(0, 0);
+  // 右側のギザギザ
+  s.lineTo(w * 0.6, len * 0.15);
+  s.lineTo(w * 0.35, len * 0.28);
+  s.lineTo(w * 0.8, len * 0.42);
+  s.lineTo(w * 0.4, len * 0.55);
+  s.lineTo(w * 0.7, len * 0.7);
+  s.lineTo(w * 0.3, len * 0.82);
+  s.lineTo(w * 0.4, len * 0.92);
+  // 鋭い先端
+  s.lineTo(0, len * 1.05);
+  // 左側（対称）
+  s.lineTo(-w * 0.4, len * 0.92);
+  s.lineTo(-w * 0.3, len * 0.82);
+  s.lineTo(-w * 0.7, len * 0.7);
+  s.lineTo(-w * 0.4, len * 0.55);
+  s.lineTo(-w * 0.8, len * 0.42);
+  s.lineTo(-w * 0.35, len * 0.28);
+  s.lineTo(-w * 0.6, len * 0.15);
+  s.lineTo(0, 0);
+  return s;
+}
+
+/**
+ * 細長く蛇行する触手状の花弁：邪眼花・深海花向け。
+ * S字にうねりながら先端へ向けて細くなる。
+ */
+export function tendrilPetal(len: number, w: number): Shape {
+  const s = new Shape();
+  s.moveTo(0, 0);
+  s.bezierCurveTo(w * 1.1, len * 0.1, w * 0.5, len * 0.35, w * 0.8, len * 0.55);
+  s.bezierCurveTo(w * 0.4, len * 0.78, w * 0.25, len * 0.9, 0, len);
+  s.bezierCurveTo(-w * 0.25, len * 0.9, -w * 0.4, len * 0.78, -w * 0.8, len * 0.55);
+  s.bezierCurveTo(-w * 0.5, len * 0.35, -w * 1.1, len * 0.1, 0, 0);
+  return s;
+}
+
+/**
+ * 菱形（ダイヤモンド）の花弁：水晶花向け。
+ * 幅の最大は中央やや上、先端は鋭角。
+ */
+export function diamondPetal(len: number, w: number): Shape {
+  const s = new Shape();
+  s.moveTo(0, 0);
+  s.lineTo(w * 0.55, len * 0.2);
+  s.lineTo(w, len * 0.55);
+  s.lineTo(w * 0.3, len * 0.88);
+  s.lineTo(0, len);
+  s.lineTo(-w * 0.3, len * 0.88);
+  s.lineTo(-w, len * 0.55);
+  s.lineTo(-w * 0.55, len * 0.2);
+  s.lineTo(0, 0);
+  return s;
+}

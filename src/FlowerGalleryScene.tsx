@@ -8,6 +8,11 @@ import { TulipFlower } from "./TulipFlower";
 import { LilyFlower } from "./LilyFlower";
 import { RoseFlower } from "./RoseFlower";
 import { CherryFlower } from "./CherryFlower";
+import { BlackFlameFlower } from "./BlackFlameFlower";
+import { EvilEyeFlower } from "./EvilEyeFlower";
+import { CrystalFlower } from "./CrystalFlower";
+import { MoonBellFlower } from "./MoonBellFlower";
+import { AbyssFlower } from "./AbyssFlower";
 import { FlowerPot, POT_TOP_Y } from "./FlowerPot";
 import type { FlowerStage } from "./GerberaFlower";
 
@@ -23,7 +28,17 @@ const STAGE_LABELS: Record<FlowerStage, string> = {
 const STAGE_SPACING = 2.6;
 const ROW_SPACING = 3.5;
 
-type VarietyKey = "gerbera" | "tulip" | "lily" | "rose" | "cherry";
+type VarietyKey =
+  | "gerbera"
+  | "tulip"
+  | "lily"
+  | "rose"
+  | "cherry"
+  | "blackflame"
+  | "evileye"
+  | "crystal"
+  | "moonbell"
+  | "abyss";
 
 type Variety = {
   key: VarietyKey;
@@ -36,48 +51,25 @@ type Variety = {
   potRim?: string;
 };
 
-const VARIETIES: Variety[] = [
-  {
-    key: "gerbera",
-    label: "ガーベラ",
-    z: -ROW_SPACING * 2,
-    topY: 2.2,
-    potBody: "#c25a3a",
-    potRim: "#a0432a",
-  },
-  {
-    key: "tulip",
-    label: "チューリップ",
-    z: -ROW_SPACING,
-    topY: 2.2,
-    potBody: "#d8d2c5",
-    potRim: "#bcb5a4",
-  },
-  {
-    key: "lily",
-    label: "ユリ",
-    z: 0,
-    topY: 2.5,
-    potBody: "#5a7280",
-    potRim: "#445864",
-  },
-  {
-    key: "rose",
-    label: "バラ",
-    z: ROW_SPACING,
-    topY: 2.1,
-    potBody: "#5b3a2c",
-    potRim: "#46291f",
-  },
-  {
-    key: "cherry",
-    label: "サクラ",
-    z: ROW_SPACING * 2,
-    topY: 2.0,
-    potBody: "#e8b8c4",
-    potRim: "#c89aa8",
-  },
+type VarietySpec = Omit<Variety, "z">;
+
+const VARIETY_SPECS: VarietySpec[] = [
+  { key: "gerbera", label: "ガーベラ", topY: 2.2, potBody: "#c25a3a", potRim: "#a0432a" },
+  { key: "tulip", label: "チューリップ", topY: 2.2, potBody: "#d8d2c5", potRim: "#bcb5a4" },
+  { key: "lily", label: "ユリ", topY: 2.5, potBody: "#5a7280", potRim: "#445864" },
+  { key: "rose", label: "バラ", topY: 2.1, potBody: "#5b3a2c", potRim: "#46291f" },
+  { key: "cherry", label: "サクラ", topY: 2.0, potBody: "#e8b8c4", potRim: "#c89aa8" },
+  { key: "blackflame", label: "黒焔華", topY: 2.2, potBody: "#1a0c10", potRim: "#3a1418" },
+  { key: "evileye", label: "邪眼花", topY: 2.1, potBody: "#2e0c28", potRim: "#4a1840" },
+  { key: "crystal", label: "星霜水晶花", topY: 2.3, potBody: "#b8d8f0", potRim: "#8ab4d4" },
+  { key: "moonbell", label: "月鳴鈴花", topY: 2.4, potBody: "#2e3a5a", potRim: "#4a5a7c" },
+  { key: "abyss", label: "深海渦潮花", topY: 2.3, potBody: "#0a1628", potRim: "#1a2a48" },
 ];
+
+const VARIETIES: Variety[] = VARIETY_SPECS.map((v, i) => ({
+  ...v,
+  z: (i - (VARIETY_SPECS.length - 1) / 2) * ROW_SPACING,
+}));
 
 const stageLabelStyle: React.CSSProperties = {
   color: "#1a1a1a",
@@ -123,6 +115,16 @@ function FlowerFor({
       return <RoseFlower stage={stage} position={position} />;
     case "cherry":
       return <CherryFlower stage={stage} position={position} />;
+    case "blackflame":
+      return <BlackFlameFlower stage={stage} position={position} />;
+    case "evileye":
+      return <EvilEyeFlower stage={stage} position={position} />;
+    case "crystal":
+      return <CrystalFlower stage={stage} position={position} />;
+    case "moonbell":
+      return <MoonBellFlower stage={stage} position={position} />;
+    case "abyss":
+      return <AbyssFlower stage={stage} position={position} />;
   }
 }
 
@@ -130,21 +132,21 @@ export function FlowerGalleryScene() {
   return (
     <Canvas
       shadows
-      camera={{ position: [0, 10, 17], fov: 50 }}
+      camera={{ position: [0, 14, 26], fov: 55 }}
       style={{ background: "#d9ecff" }}
     >
       {/* ライト */}
       <ambientLight intensity={0.55} />
       <directionalLight
-        position={[10, 18, 10]}
+        position={[14, 22, 14]}
         intensity={1.15}
         castShadow
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
-        shadow-camera-left={-18}
-        shadow-camera-right={18}
-        shadow-camera-top={18}
-        shadow-camera-bottom={-18}
+        shadow-camera-left={-22}
+        shadow-camera-right={22}
+        shadow-camera-top={22}
+        shadow-camera-bottom={-22}
       />
       <directionalLight
         position={[-6, 8, -6]}
@@ -154,7 +156,7 @@ export function FlowerGalleryScene() {
 
       {/* 地面 */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
-        <planeGeometry args={[60, 60]} />
+        <planeGeometry args={[90, 90]} />
         <meshStandardMaterial color="#8fc475" roughness={1} />
       </mesh>
 

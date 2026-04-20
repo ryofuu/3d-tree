@@ -10,10 +10,25 @@ import { TulipFlower } from "./TulipFlower";
 import { GerberaFlower } from "./GerberaFlower";
 import { LilyFlower } from "./LilyFlower";
 import { RoseFlower } from "./RoseFlower";
+import { BlackFlameFlower } from "./BlackFlameFlower";
+import { EvilEyeFlower } from "./EvilEyeFlower";
+import { CrystalFlower } from "./CrystalFlower";
+import { MoonBellFlower } from "./MoonBellFlower";
+import { AbyssFlower } from "./AbyssFlower";
 import { FlowerPot, POT_TOP_Y } from "./FlowerPot";
 import type { FlowerStage } from "./GerberaFlower";
 
-type Variety = "cherry" | "tulip" | "gerbera" | "lily" | "rose";
+type Variety =
+  | "cherry"
+  | "tulip"
+  | "gerbera"
+  | "lily"
+  | "rose"
+  | "blackflame"
+  | "evileye"
+  | "crystal"
+  | "moonbell"
+  | "abyss";
 
 type CollectionItem = {
   key: Variety;
@@ -33,9 +48,14 @@ const COLLECTION: CollectionItem[] = [
   { key: "gerbera", label: "ガーベラ", potBody: "#c25a3a", potRim: "#a0432a" },
   { key: "lily", label: "ユリ", potBody: "#5a7280", potRim: "#445864" },
   { key: "rose", label: "バラ", potBody: "#5b3a2c", potRim: "#46291f" },
+  { key: "blackflame", label: "黒焔華", potBody: "#1a0c10", potRim: "#3a1418" },
+  { key: "evileye", label: "邪眼花", potBody: "#2e0c28", potRim: "#4a1840" },
+  { key: "crystal", label: "星霜水晶花", potBody: "#b8d8f0", potRim: "#8ab4d4" },
+  { key: "moonbell", label: "月鳴鈴花", potBody: "#2e3a5a", potRim: "#4a5a7c" },
+  { key: "abyss", label: "深海渦潮花", potBody: "#0a1628", potRim: "#1a2a48" },
 ];
 
-const SLOT_SPACING = 1.6;
+const SLOT_SPACING = 1.35;
 const SHELF_Y = 0;
 const SHELF_DEPTH = 1.2;
 const SHELF_BACK_Z = -0.7;
@@ -58,6 +78,16 @@ function FlowerByVariety({
       return <LilyFlower stage={stage} />;
     case "rose":
       return <RoseFlower stage={stage} />;
+    case "blackflame":
+      return <BlackFlameFlower stage={stage} />;
+    case "evileye":
+      return <EvilEyeFlower stage={stage} />;
+    case "crystal":
+      return <CrystalFlower stage={stage} />;
+    case "moonbell":
+      return <MoonBellFlower stage={stage} />;
+    case "abyss":
+      return <AbyssFlower stage={stage} />;
   }
 }
 
@@ -170,7 +200,7 @@ function ShelfView({ onSelect }: { onSelect: (v: Variety) => void }) {
   return (
     <Canvas
       shadows
-      camera={{ position: [0, 2.2, 6.5], fov: 50 }}
+      camera={{ position: [0, 3, 11], fov: 52 }}
       style={{ background: "linear-gradient(180deg,#241d36 0%,#3e2f5a 100%)" }}
     >
       <ambientLight intensity={0.55} />
@@ -210,8 +240,8 @@ function ShelfView({ onSelect }: { onSelect: (v: Variety) => void }) {
       <OrbitControls
         target={[0, 1.2, 0]}
         enablePan={false}
-        minDistance={3.5}
-        maxDistance={12}
+        minDistance={4}
+        maxDistance={18}
         maxPolarAngle={Math.PI / 2 - 0.05}
       />
 
