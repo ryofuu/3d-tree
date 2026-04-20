@@ -1,35 +1,14 @@
 import { useState } from "react";
-import { GardenScene } from "./GardenScene";
 import { FlowerGalleryScene } from "./FlowerGalleryScene";
-import { CrystalScene } from "./CrystalScene";
-import { GalaxyScene } from "./GalaxyScene";
-import { FeatherScene } from "./FeatherScene";
-import { CoralScene } from "./CoralScene";
-import { InkScene } from "./InkScene";
 import { EvolutionScene } from "./EvolutionScene";
 import { CollectionScene } from "./CollectionScene";
 
-type TabKey =
-  | "garden"
-  | "gallery"
-  | "evolution"
-  | "collection"
-  | "crystal"
-  | "galaxy"
-  | "feather"
-  | "coral"
-  | "ink";
+type TabKey = "gallery" | "evolution" | "collection";
 
 const TABS: Array<{ key: TabKey; label: string }> = [
-  { key: "garden", label: "植物園" },
   { key: "gallery", label: "花図鑑" },
   { key: "evolution", label: "進化" },
   { key: "collection", label: "コレクション" },
-  { key: "crystal", label: "クリスタル" },
-  { key: "galaxy", label: "ギャラクシー" },
-  { key: "feather", label: "フェザー" },
-  { key: "coral", label: "コーラル" },
-  { key: "ink", label: "インク" },
 ];
 
 const navStyle: React.CSSProperties = {
@@ -78,7 +57,7 @@ const canvasContainerStyle: React.CSSProperties = {
 };
 
 export function App() {
-  const [tab, setTab] = useState<TabKey>("garden");
+  const [tab, setTab] = useState<TabKey>("gallery");
   return (
     <>
       <nav style={navStyle}>
@@ -93,15 +72,9 @@ export function App() {
         ))}
       </nav>
       <div style={canvasContainerStyle}>
-        {tab === "garden" && <GardenScene />}
         {tab === "gallery" && <FlowerGalleryScene />}
         {tab === "evolution" && <EvolutionScene />}
         {tab === "collection" && <CollectionScene />}
-        {tab === "crystal" && <CrystalScene />}
-        {tab === "galaxy" && <GalaxyScene />}
-        {tab === "feather" && <FeatherScene />}
-        {tab === "coral" && <CoralScene />}
-        {tab === "ink" && <InkScene />}
       </div>
     </>
   );
