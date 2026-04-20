@@ -5,3 +5,5 @@ dist
 .vite
 .omc
 *.tsbuildinfo
+.next
+out
